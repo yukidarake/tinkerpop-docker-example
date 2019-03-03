@@ -1,0 +1,20 @@
+version: '3.7'
+services:
+
+  gremlin-server:
+    image: tinkerpop/gremlin-server:3.4
+    ports:
+      - 8182:8182
+    # environment:
+    volumes:
+      - ./gremlin-server/conf:/opt/gremlin-server/conf
+      - ./gremlin-server/data:/opt/gremlin-server/data
+    # https://qiita.com/mumoshu/items/064cd93ce116d8e04169 
+    init: true
+
+  gremlin-console:
+    build: gremlin-console/
+    volumes:
+      - ./gremlin-console:/myconf
+    command: >
+      /apache-tinkerpop-gremlin-console-3.4.0/bin/gremlin.sh
